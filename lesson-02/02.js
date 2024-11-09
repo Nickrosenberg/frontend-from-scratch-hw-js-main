@@ -7,15 +7,17 @@
 * Для успешного прохождения тестов не меняйте названия переменных!
 */
 
-let dice1 = Math.floor(Math.random() * 6) + 1; // Значение первого кубика
-let dice2 = Math.floor(Math.random() * 6) + 1; // Значение второго кубика
+// Генерация случайных чисел от 1 до 6 для двух кубиков
+const dice1 = Math.floor(Math.random() * 6) + 1;
+const dice2 = Math.floor(Math.random() * 6) + 1;
 
-// Проверяем, является ли дубль выигрышным
-let isWinningDouble = (dice1 === dice2) && (dice1 > 3);
+// Проверка, является ли дубль выигрышным
+const isWinningDouble = (dice1 === dice2) && (dice1 > 3);
 
-// Выводим результаты в консоль
-console.log(<code>Dice 1: ${dice1}, Dice 2: ${dice2}</code>);
-console.log(<code>Is Winning Double: ${isWinningDouble}</code>);
+// Вывод результатов
+console.log(`Кубик 1: ${dice1}`);
+console.log(`Кубик 2: ${dice2}`);
+console.log(`Выигрышный дубль: ${isWinningDouble}`);
 
 /*
 console.log('Первый бросок: ' + dice1)
