@@ -8,8 +8,8 @@
 */
 
 // Генерация случайных чисел от 1 до 6 для двух кубиков
-const dice1 = Math.floor(Math.random() * 6) + 1;
-const dice2 = Math.floor(Math.random() * 6) + 1;
+const dice1 = Math.floor(Math.random() * 6);
+const dice2 = Math.floor(Math.random() * 6);
 
 // Проверка, является ли дубль выигрышным
 const isWinningDouble = (dice1 === dice2) && (dice1 > 3);
