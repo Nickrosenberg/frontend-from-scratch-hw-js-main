@@ -4,6 +4,30 @@
  * Результат сохраните в переменной grade.
  */
 
-const score = 70 // тестовое значение, можно изменять
-let grade
-// your code
+// const score = 70 // тестовое значение, можно изменять
+// let grade
+// // your code
+
+// Пример балла студента
+let score = 85; // Вы можете изменить это значение для тестирования
+
+// Переменная для хранения оценки
+let grade;
+
+// Определение оценки в зависимости от балла
+if (score >= 90 && score <= 100) {
+    grade = 'A';
+} else if (score >= 80 && score < 90) {
+    grade = 'B';
+} else if (score >= 70 && score < 80) {
+    grade = 'C';
+} else if (score >= 50 && score < 70) {
+    grade = 'D';
+} else if (score >= 0 && score < 50) {
+    grade = 'F';
+} else {
+    grade = 'Invalid score'; // Обработка недопустимого значения
+}
+
+// Вывод результата
+console.log(<code>Score: ${score}, Grade: ${grade}</code>);
