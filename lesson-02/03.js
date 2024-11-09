@@ -8,26 +8,29 @@
 // let grade
 // // your code
 
-// Пример балла студента
-let score = 85; // Вы можете изменить это значение для тестирования
+function determineGrade(score) {
+    let grade;
 
-// Переменная для хранения оценки
-let grade;
+    if (score < 0 || score > 100) {
+        return 'Ошибка: Балл должен быть в диапазоне от 0 до 100.';
+    }
 
-// Определение оценки в зависимости от балла
-if (score >= 90 && score <= 100) {
-    grade = 'A';
-} else if (score >= 80 && score < 90) {
-    grade = 'B';
-} else if (score >= 70 && score < 80) {
-    grade = 'C';
-} else if (score >= 50 && score < 70) {
-    grade = 'D';
-} else if (score >= 0 && score < 45) {
-    grade = 'F';
-} else {
-    grade = 'Invalid score'; // Обработка недопустимого значения
+    if (score >= 90) {
+        grade = 'A';
+    } else if (score >= 80) {
+        grade = 'B';
+    } else if (score >= 70) {
+        grade = 'C';
+    } else if (score >= 50) {
+        grade = 'D';
+    } else {
+        grade = 'F';
+    }
+
+    return grade;
 }
 
-// Вывод результата
-console.log(<code>Score: ${score}, Grade: ${grade}</code>);
+// Пример использования функции
+let score = 85; // Задайте балл от 0 до 100
+let grade = determineGrade(score);
+console.log(`Оценка студента за балл ${score} - ${grade}`);
