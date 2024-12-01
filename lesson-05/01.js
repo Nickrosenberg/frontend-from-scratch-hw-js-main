@@ -12,8 +12,26 @@
 
 const game = {
   resources: {
-    gold: 250,
-    lumber: 100,
+      gold: 100,
+      lumber: 50,
+      stone: 75,
+      // другие ресурсы могут быть добавлены здесь
   },
-  addResource() {}
-}
+
+  addResource: function(resource, amount) {
+      // Проверяем, существует ли ресурс в game.resources
+      if (this.resources.hasOwnProperty(resource)) {
+          // Если существует, добавляем указанное количество
+          this.resources[resource] += amount;
+          console.log(`Добавлено ${amount} ${resource}. Текущее количество: ${this.resources[resource]}`);
+      } else {
+          // Если ресурс не существует, выводим сообщение
+          console.log("Invalid resource");
+      }
+  }
+};
+
+// Примеры использования:
+game.addResource('gold', 50); // Добавлено 50 gold. Текущее количество: 150
+game.addResource('lumber', 20); // Добавлено 20 lumber. Текущее количество: 70
+game.addResource('water', 10); // Invalid resource
