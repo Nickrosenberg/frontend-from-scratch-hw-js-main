@@ -21,7 +21,7 @@ const game = {
   addResource: function(resource, amount) {
       // Проверка, существует ли тип ресурса
       if (!(resource in this.resources)) {
-          console.log("Invalid resource");
+          // console.log("Invalid resource");
           return;
       }
       
