@@ -14,25 +14,32 @@ const game = {
   resources: {
       gold: 100,
       lumber: 50,
-      stone: 30
+      stone: 75,
+      // другие ресурсы могут быть добавлены здесь
   },
-  addResource: function(resource, amount) {
-      // Проверяем, существует ли ресурс в объекте resources
-      if (this.resources.hasOwnProperty(resource)) {
-          // Если ресурс существует, добавляем указанное количество
-          this.resources[resource] += amount;
-      } else {
-          // Если ресурс не существует, выводим сообщение об ошибке
+  
+  addResource(resource, amount) {
+      // Проверяем, существует ли тип ресурса в объекте resources
+      if (!(resource in this.resources)) {
           console.log("Invalid resource");
+          return; // Выход из метода, если ресурс неверный
       }
+      
+      // Проверяем, что amount является положительным числом
+      if (typeof amount !== 'number' || amount < 0) {
+          console.log("Amount should be a positive number");
+          return; // Выход из метода, если количество ресурса некорректное
+      }
+      
+      // Добавляем количество ресурса к существующему значению
+      this.resources[resource] += amount;
   }
 };
 
-// Примеры использования метода
-game.addResource('gold', 50); // Увеличит gold на 50
-console.log(game.resources.gold); // 150
+// Примеры использования:
+game.addResource('gold', 50);           // Добавляет 50 золота
+game.addResource('lumber', 20);         // Добавляет 20 древесины
+game.addResource('water', 10);          // Вывод: Invalid resource
+game.addResource('stone', -10);         // Вывод: Amount should be a positive number
 
-game.addResource('lumber', 20); // Увеличит lumber на 20
-console.log(game.resources.lumber); // 70
-
-game.addResource('silver', 10); // Выведет "Invalid resource"
+console.log(game.resources); // Проверяем обновленные ресурсы
