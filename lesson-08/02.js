@@ -46,16 +46,16 @@ const startButton = document.getElementById('start');
 const cancelButton = document.getElementById('cancel');
 const countdownDisplay = document.getElementById('countdown');
 
-let isTimerStarted = false;
-let timerId;
+let isTimerRunning = false; // Флаг, который указывает, работает ли таймер
+let timerId; // Идентификатор таймера
 
 startButton.addEventListener('click', () => {
-  if (isTimerStarted) return; // Если таймер уже запущен, ничего не делаем
-
-  isTimerStarted = true; // Устанавливаем флаг, что таймер запущен
-  let counter = 3;
+  if (isTimerRunning) return; // Если таймер уже запущен, ничего не делаем
+  
+  isTimerRunning = true; // Устанавливаем флаг, что таймер запущен
+  let counter = 3; // Начинаем с 3
   countdownDisplay.textContent = counter; // Отображаем начальное значение
-
+  
   timerId = setInterval(() => {
     counter--; // Уменьшаем счётчик на 1
     if (counter > 0) {
@@ -63,15 +63,15 @@ startButton.addEventListener('click', () => {
     } else {
       countdownDisplay.textContent = '🚀'; // Отображаем ракету
       clearInterval(timerId); // Останавливаем таймер
-      isTimerStarted = false; // Сбрасываем флаг
+      isTimerRunning = false; // Сбрасываем флаг
     }
   }, 1000); // Интервал 1 секунда
 });
 
 cancelButton.addEventListener('click', () => {
-  if (!isTimerStarted) return; // Если таймер не запущен, ничего не делаем
-
+  if (!isTimerRunning) return; // Если таймер не запущен, ничего не делаем
+  
   clearInterval(timerId); // Останавливаем таймер
   countdownDisplay.textContent = 'Отменено'; // Отображаем сообщение об отмене
-  isTimerStarted = false; // Сбрасываем флаг
+  isTimerRunning = false; // Сбрасываем флаг
 });
