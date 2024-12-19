@@ -42,36 +42,35 @@
 //   // your code
 // })
 
-const startButton = document.getElementById('start');
-const cancelButton = document.getElementById('cancel');
-const countdownDisplay = document.getElementById('countdown');
+let countdown;
+        let countdownValue = 3;
 
-let isTimerRunning = false; // Флаг, который указывает, работает ли таймер
-let timerId; // Идентификатор таймера
+        document.getElementById('startButton').addEventListener('click', startCountdown);
+        document.getElementById('cancelButton').addEventListener('click', cancelCountdown);
 
-startButton.addEventListener('click', () => {
-  if (isTimerRunning) return; // Если таймер уже запущен, ничего не делаем
-  
-  isTimerRunning = true; // Устанавливаем флаг, что таймер запущен
-  let counter = 3; // Начинаем с 3
-  countdownDisplay.textContent = counter; // Отображаем начальное значение
-  
-  timerId = setInterval(() => {
-    counter--; // Уменьшаем счётчик на 1
-    if (counter > 0) {
-      countdownDisplay.textContent = counter; // Обновляем отображение счётчика
-    } else {
-      countdownDisplay.textContent = '🚀'; // Отображаем ракету
-      clearInterval(timerId); // Останавливаем таймер
-      isTimerRunning = false; // Сбрасываем флаг
-    }
-  }, 1000); // Интервал 1 секунда
-});
+        function startCountdown() {
+            // Предотвращаем запуск нового таймера, если он уже запущен
+            if (countdown) return;
 
-cancelButton.addEventListener('click', () => {
-  if (!isTimerRunning) return; // Если таймер не запущен, ничего не делаем
-  
-  clearInterval(timerId); // Останавливаем таймер
-  countdownDisplay.textContent = 'Отменено'; // Отображаем сообщение об отмене
-  isTimerRunning = false; // Сбрасываем флаг
-});
+            countdownValue = 3;
+            document.getElementById('countdownDisplay').textContent = countdownValue;
+
+            countdown = setInterval(() => {
+                countdownValue--;
+                if (countdownValue > 0) {
+                    document.getElementById('countdownDisplay').textContent = countdownValue;
+                } else {
+                    document.getElementById('countdownDisplay').textContent = '🚀';
+                    clearInterval(countdown);  // Останавливаем таймер
+                    countdown = null;  // Сбрасываем переменную таймера
+                }
+            }, 1000);
+        }
+
+        function cancelCountdown() {
+            if (countdown) {
+                clearInterval(countdown);  // Останавливаем таймер
+                countdown = null;  // Сбрасываем переменную таймера
+                document.getElementById('countdownDisplay').textContent = 'Отменено';
+            }
+        }
