@@ -69,60 +69,11 @@
 
 // Твой код:
 
-const cart = [];
-
-// Элемент контейнера для питомцев
-const petShop = document.querySelector('.pet-shop');
-const cartList = document.getElementById('cart-list');
-const messageBox = document.getElementById('message-box');
-const clearCartButton = document.getElementById('clear-cart-button');
-
-// Рендерим кнопки для питомцев
-for (let i = 0; i < PETS.length; i++) {
-const pet = PETS[i];
-
-const petButtonElement = document.createElement('button');
-petButtonElement.classList.add('pet');
-petButtonElement.id = pet.id;
-petButtonElement.textContent = pet.title;
-
-petShop.append(petButtonElement);
-}
-
-// Обновляем отображение корзины
-function updateCartDisplay() {
-cartList.innerHTML = '';
-
-for (let i = 0; i < cart.length; i++) {
-    const petId = cart[i];
-    const pet = PETS.find((item) => item.id === petId);
-    const petSpanElement = document.createElement('li');
-    petSpanElement.classList.add('pet');
-    petSpanElement.textContent = pet.title;
-    cartList.append(petSpanElement);
-}
-}
-
-// Добавляем обработчик событий для добавления питомцев в корзину
-petShop.addEventListener('click', (event) => {
-  // Проверяем, что кликнули на кнопку питомца
-if (event.target.classList.contains('pet')) {
-    if (cart.length >= 3) {
-    messageBox.textContent = 'Вы не можете добавить более 3 питомцев';
-    return;
-    }
-
-    // Добавляем id питомца в корзину
-    cart.push(event.target.id);
-    updateCartDisplay();
-
-    // Очищаем сообщение об ошибке, если оно было
-    messageBox.textContent = '';
-}
-});
-
-// Очистка корзины
-clearCartButton.addEventListener('click', function () {
-cart.length = 0;
-updateCartDisplay();
-});
+petShop.addEventListener('click', function (event) { 
+    if (cart.length < 3) { 
+    cart.push(event.target.id) 
+    updateCartDisplay() 
+    } else { 
+    messageBox.textContent = 'Вы не можете добавить более 3 питомцев' 
+    } 
+})
