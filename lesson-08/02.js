@@ -42,35 +42,30 @@
 //   // your code
 // })
 
-let countdown;
-        let countdownValue = 3;
+startButton.addEventListener('click', () => { 
+    let counter = 3 
+    // your code 
+    if (isTimerStarted === false) { 
+    isTimerStarted = true 
+    countdownDisplay.textContent = counter 
+    timerId = setInterval(function () { 
+        if (counter === 1) { 
+        clearInterval(timerId) 
+        countdownDisplay.textContent = '🚀' 
+        isTimerStarted = false 
+        } else { 
+        counter-- 
+        countdownDisplay.textContent = counter 
+        } 
+    }, 1000) 
+    } 
+}) 
 
-        document.getElementById('startButton').addEventListener('click', startCountdown);
-        document.getElementById('cancelButton').addEventListener('click', cancelCountdown);
-
-        function startCountdown() {
-            // Предотвращаем запуск нового таймера, если он уже запущен
-            if (countdown) return;
-
-            countdownValue = 3;
-            document.getElementById('countdownDisplay').textContent = countdownValue;
-
-            countdown = setInterval(() => {
-                countdownValue--;
-                if (countdownValue > 0) {
-                    document.getElementById('countdownDisplay').textContent = countdownValue;
-                } else {
-                    document.getElementById('countdownDisplay').textContent = '🚀';
-                    clearInterval(countdown);  // Останавливаем таймер
-                    countdown = null;  // Сбрасываем переменную таймера
-                }
-            }, 1000);
-        }
-
-        function cancelCountdown() {
-            if (countdown) {
-                clearInterval(countdown);  // Останавливаем таймер
-                countdown = null;  // Сбрасываем переменную таймера
-                document.getElementById('countdownDisplay').textContent = 'Отменено';
-            }
-        }
+cancelButton.addEventListener('click', () => { 
+    // your code 
+    if (isTimerStarted) { 
+    clearInterval(timerId) 
+    countdownDisplay.textContent = "Отменено" 
+    isTimerStarted = false 
+    } 
+})
