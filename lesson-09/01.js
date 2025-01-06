@@ -23,4 +23,31 @@ const oddNumbers = filter(numbers, (element, index) => {
 console.log(oddNumbers) // Должен вывести: [1, 3, 5]
 */
 
-const filter = () => {}
+// const filter = () => {}
+
+  function filter(array, callback) {
+    // Создаем новый массив для хранения отфильтрованных элементов
+    const result = [];
+  
+    // Проходим по каждому элементу массива
+    for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+        // Вызываем колбэк-функцию с текущим элементом и индексом
+        if (callback(element, index)) {
+            // Если колбэк возвратил true, добавляем элемент в результат
+            result.push(element);
+        }
+    }
+  
+    // Возвращаем новый массив, содержащий только отфильтрованные элементы
+    return result;
+}
+
+// Пример использования
+const numbers = [1, 2, 3, 4, 5];
+
+const oddNumbers = filter(numbers, (element, index) => {
+    return element % 2 !== 0; // Фильтруем нечетные числа
+});
+
+console.log(oddNumbers); // Должен вывести: [1, 3, 5]
