@@ -10,36 +10,35 @@
 3. Если ресурс существует, метод должен добавлять значение `amount` к текущему количеству этого ресурса в объекте.
 */
 
+//const game = {
+//resources: {
+//gold: 250,
+//lumber: 100,
+//},
+//addResource(resource, amount) {
+//if (resource !== game.resources) {
+//console.log('Invalid resource');
+//}
+//if (resource === game.resources) {
+//this.resource = resource + amount;
+//}
+//},
+//};
+//game.addResource(tree, 4)
+//console.log(game.resources);
+
 const game = {
   resources: {
-      gold: 100,
-      lumber: 50,
-      stone: 75,
-      // другие ресурсы могут быть добавлены здесь
+    gold: 250,
+    lumber: 100,
   },
-  
   addResource(resource, amount) {
-      // Проверяем, существует ли тип ресурса в объекте resources
-      if (!(resource in this.resources)) {
-          console.log("Invalid resource");
-          return; // Выход из метода, если ресурс неверный
-      }
-      
-      // Проверяем, что amount является положительным числом
-      if (typeof amount !== 'number' || amount < 0) {
-          console.log("Amount should be a positive number");
-          return; // Выход из метода, если количество ресурса некорректное
-      }
-      
-      // Добавляем количество ресурса к существующему значению
-      this.resources[resource] += amount;
-  }
+    if (!game.resources.hasOwnProperty(resource)) { // содержит ли объект значение? если folse то консоль иначе ...
+      console.log('Invalid resource');
+    } else {
+      game.resources[resource] += amount;
+    }
+  },
 };
-
-// Примеры использования:
-game.addResource('gold', 50);           // Добавляет 50 золота
-game.addResource('lumber', 20);         // Добавляет 20 древесины
-game.addResource('water', 10);          // Вывод: Invalid resource
-game.addResource('stone', -10);         // Вывод: Amount should be a positive number
-
-console.log(game.resources); // Проверяем обновленные ресурсы
+game.addResource('gold', 4);
+console.log(game.resources);
