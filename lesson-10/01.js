@@ -21,124 +21,97 @@
   - метод должен отобразить сообщение "Фильм успешно удалён!" в message-box
 */
 
-// const model = {
-//   movies: [],
-//   addMovie(title, description) {
-//     const id = Math.random()
-//     const newMovie = { id, title, description }
-//     this.movies.push(newMovie)
-//     view.renderMovies(this.movies)
-//   },
-//   // your code
-// }
-
-// const view = {
-//   init() {
-//     this.renderMovies(model.movies)
-
-//     const form = document.querySelector('.form')
-//     const inputTitle = document.querySelector('.input-title')
-//     const inputDescription = document.querySelector('.input-description')
-
-//     form.addEventListener('submit', function (event) {
-//       event.preventDefault()
-//       const title = inputTitle.value
-//       const description = inputDescription.value
-//       controller.addMovie(title, description)
-
-//       inputTitle.value = ''
-//       inputDescription.value = ''
-//     })
-
-//     // your code
-//   },
-//   renderMovies(movies) {
-//     const list = document.querySelector('.list')
-//     let moviesHTML = ''
-
-//     for (const movie of movies) {
-//       moviesHTML += `
-//         <li id="${movie.id}" class="movie">
-//           <b class="movie-title">${movie.title}</b>
-//           <p class="movie-description">${movie.description}</p>
-//           <button class="delete-button" type="button">Удалить 🗑</button>
-//         </li>
-//       `
-//     }
-
-//     list.innerHTML = moviesHTML
-//   },
-//   displayMessage(message, isError = false) {
-//     const messageBox = document.querySelector('.message-box')
-//     messageBox.textContent = message
-//     if (isError) {
-//       messageBox.classList.remove('success')
-//       messageBox.classList.add('error')
-//     } else {
-//       messageBox.classList.remove('error')
-//       messageBox.classList.add('success')
-//     }
-//   },
-// }
-
-// const controller = {
-//   addMovie(title, description) {
-//     if (title.trim() !== '' && description.trim() !== '') {
-//       model.addMovie(title, description)
-//       view.displayMessage('Фильм добавлен успешно!')
-//     } else {
-//       view.displayMessage('Заполните все поля!', true)
-//     }
-//   },
-//   // your code
-// }
-
-// function init() {
-//   view.init()
-// }
-
-// document.addEventListener('DOMContentLoaded', init)
-
 const model = {
-  movies: [
-      { id: 1, title: "Фильм 1" },
-      { id: 2, title: "Фильм 2" },
-      { id: 3, title: "Фильм 3" },
-  ],
+  movies: [],
+  addMovie(title, description) {
+    const id = Math.random();
+    const newMovie = { id, title, description };
+    this.movies.push(newMovie);
+    view.renderMovies(this.movies);
+  },
+  // your code
+  deleteMovie(movieId) {
+    this.movies = this.movies.filter((el) => el.id !== movieId);
+    view.renderMovies(this.movies);
 
-  deleteMovie(id) {
-      this.movies = this.movies.filter(movie => movie.id !== id);
-      view.renderMovies(this.movies); // Обновляем отображение после удаления
-  }
+  },
 };
 
 const view = {
   init() {
-      this.movieList = document.getElementById('movie-list');
-      this.movieList.addEventListener('click', this.handleDeleteClick);
-      this.renderMovies(model.movies); // Начальная отрисовка фильмов
-  },
+    this.renderMovies(model.movies);
 
-  renderMovies(movies) {
-      this.movieList.innerHTML = ''; // Очищаем текущий список
-      movies.forEach(movie => {
-          const movieItem = document.createElement('div');
-          movieItem.innerHTML = `
-              <span>${movie.title}</span>
-              <button class="delete" data-id="${movie.id}">Удалить</button>
-          `;
-          this.movieList.appendChild(movieItem);
-      });
-  },
+    const form = document.querySelector('.form');
+    const inputTitle = document.querySelector('.input-title');
+    const inputDescription = document.querySelector('.input-description');
+    const ul = document.querySelector('.list');
 
-  handleDeleteClick(event) {
-      if (event.target.classList.contains('delete')) {
-          const id = parseInt(event.target.dataset.id);
-          controller.deleteMovie(id);
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      const title = inputTitle.value;
+      const description = inputDescription.value;
+      controller.addMovie(title, description);
+
+      inputTitle.value = '';
+      inputDescription.value = '';
+    });
+
+    // your code
+    ul.addEventListener('click', function (event) {
+      if (event.target.classList.contains('delete-button')) {
+        const movieId = +event.target.parentElement.id;
+        // 2. вызываем метод контроллера для удаления задачи
+        controller.deleteMovie(movieId);
       }
-  }
+    });
+  },
+  renderMovies(movies) {
+    const list = document.querySelector('.list');
+    let moviesHTML = '';
+
+    for (const movie of movies) {
+      moviesHTML += `
+        <li id="${movie.id}" class="movie">
+          <b class="movie-title">${movie.title}</b>
+          <p class="movie-description">${movie.description}</p>
+          <button class="delete-button" type="button">Удалить 🗑</button>
+        </li>
+      `;
+    }
+
+    list.innerHTML = moviesHTML;
+  },
+  displayMessage(message, isError = false) {
+    const messageBox = document.querySelector('.message-box');
+    messageBox.textContent = message;
+    if (isError) {
+      messageBox.classList.remove('success');
+      messageBox.classList.add('error');
+    } else {
+      messageBox.classList.remove('error');
+      messageBox.classList.add('success');
+    }
+  },
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  view.init(); // Инициализируем представление
-});
+const controller = {
+  addMovie(title, description) {
+    if (title.trim() !== '' && description.trim() !== '') {
+      model.addMovie(title, description);
+      view.displayMessage('Фильм добавлен успешно!');
+    } else {
+      view.displayMessage('Заполните все поля!', true);
+    }
+  },
+  // your code
+  deleteMovie(movieId) {
+    model.deleteMovie(movieId);
+    view.displayMessage('Фильм успешно удалён!');
+  },
+};
+
+function init() {
+  view.init();
+}
+
+document.addEventListener('DOMContentLoaded', init);
